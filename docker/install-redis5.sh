@@ -4,5 +4,5 @@ yum install -y docker wget
 systemctl start docker
 mkdir -p /data/redis/conf
 cd /data/redis/conf
-wget -c
+wget -c https://raw.githubusercontent.com/1030907690/public-script/master/docker/redis.conf
 docker run -d -p 6379:6379 -v /data/redis/conf:/usr/local/etc/redis --name redis-standard redis:5.0.7 redis-server /usr/local/etc/redis/redis.conf
