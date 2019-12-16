@@ -1,0 +1,79 @@
+#自定义地址
+custom-config: file:${user.dir}/res/
+#api端口
+server:
+  port: 8085
+  tomcat:
+    uri-encoding: UTF-8
+  servlet:
+    context-path: /
+
+
+#spring session
+spring:
+  resources:
+    static-locations: classpath:/static/
+  mvc:
+    static-path-pattern: /**
+  session:
+    store-type: none
+    redis:
+      namespace: ${spring.application.name}
+      maxInactiveIntervalInSeconds: 7200  #过期时间
+      maxFailCount: 3  #最大登录失败次数
+      maxFailSeconds: 300 #最大失败时间
+  application:
+    name: download
+  redis:
+    mode: single  #sentinel/cluster/single
+
+  mongodb:
+    mode: single #single/relica
+  http:
+    encoding:
+      charset: UTF-8 # Charset of HTTP requests and responses. Added to the "Content-Type" header if not set explicitly.
+      enabled: true  # Enable http encoding support.
+      force: true  # Force the encoding to the configured charset on HTTP requests and responses.
+      force-request: true  # Force the encoding to the configured charset on HTTP requests. Defaults to true when "force" has not been specified.
+      force-response: true # Force the encoding to the configured charset on HTTP responses.
+
+logging:
+  config: file:${user.dir}/config/logback-spring.xml #${custom-config}/logback-spring.xml
+#自定义security路径
+security-config: classpath:./config/
+
+
+##包名
+logic-package-name: com.lyh.app.video.video.download
+##资源路径
+res-path: ${user.dir}/res/
+
+command-xml: ${res-path}/command.xml
+
+###机器码注意每个进程一定不要一样
+workerId: 1
+
+datacenterId: 1
+
+#thymeleaf
+thymeleaf:
+  cache: false # Enable template caching.
+  check-template: true # Check that the template exists before rendering it.
+  enable-spring-el-compiler: false # Enable the SpringEL compiler in SpringEL expressions.
+  check-template-location: true # Check that the templates location exists.
+  enabled: true # Enable Thymeleaf view resolution for Web frameworks.
+  encoding: UTF-8 # Template files encoding.
+  mode: HTML5 # Template mode to be applied to templates. See also StandardTemplateModeHandlers.
+  reactive:
+    max-chunk-size: 0 # Maximum size of data buffers used for writing to the response.
+  servlet:
+    content-type: text/html # Content-Type value written to HTTP responses.
+    produce-partial-output-while-processing: true # Whether Thymeleaf should start writing partial output as soon as possible or buffer until template processing is finished.
+    prefix: classpath:/templates/ # Prefix that gets prepended to view names when building a URL.
+  suffix: .html # Suffix that gets appended to view names when building a URL.z
+
+#自定义-渠道号
+custom-channelId: dabaitu
+
+#图片加密路径
+img-encode: file:${user.dir}/static/img/imgencode
