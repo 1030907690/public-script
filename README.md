@@ -1,2 +1,2 @@
 # public-script
-public-script公共的脚本
+public-script公开的脚本
