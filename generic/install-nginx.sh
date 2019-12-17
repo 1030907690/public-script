@@ -20,5 +20,6 @@ cd nginx-1.12.2
 ./configure --prefix=/usr/local/nginx  --with-pcre=../pcre-8.41 --with-zlib=../zlib-1.2.11 --with-http_ssl_module   --with-openssl=../openssl-1.0.2q
 make && make install
 cd /usr/local/nginx/conf
+mkdir vhost
 rm -rf nginx.conf
 wget -c https://raw.githubusercontent.com/1030907690/public-script/master/generic/nginx.conf
