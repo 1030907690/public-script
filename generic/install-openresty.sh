@@ -10,7 +10,7 @@ wget -c https://liquidtelecom.dl.sourceforge.net/project/generic-software/php/zl
 wget -c https://liquidtelecom.dl.sourceforge.net/project/generic-software/php/perl-5.30.1.tar.gz
 
 #nginx 打印
-wget -c https://liquidtelecom.dl.sourceforge.net/project/generic-software/php/echo-nginx-module-0.61.tar.gz
+#wget -c https://liquidtelecom.dl.sourceforge.net/project/generic-software/php/echo-nginx-module-0.61.tar.gz
 
 
 
@@ -53,14 +53,13 @@ else
   make test
   make install
   cd ..
-  tar -zxvf echo-nginx-module-0.61.tar.gz
   tar -zxvf openresty-1.15.8.2.tar.gz
   tar -zxvf openssl-1.0.2q.tar.gz
   tar -zxvf pcre-8.41.tar.gz
   tar -zxvf zlib-1.2.11.tar.gz
 
   cd openresty-1.15.8.2
-  #--add-module=../echo-nginx-module-0.61
+
   ./configure --prefix=/usr/local/openresty --with-pcre=../pcre-8.41 --with-zlib=../zlib-1.2.11 --with-http_ssl_module   --with-openssl=../openssl-1.0.2q
   make && make install
   cd /usr/local/openresty
