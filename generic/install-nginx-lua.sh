@@ -40,4 +40,5 @@ make -j2 && make install
 cd /usr/local/nginx/conf
 mkdir vhost
 rm -rf nginx.conf
-wget -c https://raw.githubusercontent.com/1030907690/public-script/master/generic/nginx.conf
+wget -c https://raw.githubusercontent.com/1030907690/public-script/master/generic/nginx-lua.conf
+mv nginx-lua.conf nginx.conf
