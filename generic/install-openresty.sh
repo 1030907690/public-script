@@ -38,7 +38,7 @@ sed -i 'N;116 a include vhost/*.conf;' nginx/conf/nginx.conf
 
 else
   echo "当前系统是其他系统Ubuntu"
-  apt-get install -y wget
+  apt-get install -y wget gcc gcc-c++
    #基础依赖
   wget -c https://liquidtelecom.dl.sourceforge.net/project/generic-software/php/openresty-1.15.8.2.tar.gz
   wget -c https://liquidtelecom.dl.sourceforge.net/project/generic-software/php/openssl-1.0.2q.tar.gz
