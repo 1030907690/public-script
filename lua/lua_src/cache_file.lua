@@ -1,21 +1,26 @@
 -- 缓存文件
+ local _M = {}
 cache_tab = {};
 function _M.cache()
-    local existence = false
+     local existence = false
     -- 静态文件前缀
     local prefix = "/usr/local/openresty/nginx/html"
     local httpUri = ngx.var.request_uri
     if nil == cache_tab[httpUri] then
-        local f_ret,err = io.open(prefix..httpUri)
-        if nil == err then
-            local ret = f_ret:read("*a")
-            cache_tab[httpUri] = ret
-            existence = true
-        else
-            existence = false
+	
+	    local file = io.open(prefix..httpUri, "rb")
+		if file then
+			local ret = file:read("*a")
+            if nil ~= ret then
+				cache_tab[httpUri] = ret
+				existence = true
+				-- ngx.say("save cache")
+			end
+			file:close()
+		else
+		    existence = false
            -- ngx.say("404 Not Found")
-        end
-         f_ret:close()
+		end
     else
         existence = true
     end
@@ -26,5 +31,5 @@ function _M.cache()
     else
         ngx.say("404 Not Found")
     end
-
 end
+return _M
