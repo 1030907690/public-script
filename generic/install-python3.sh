@@ -40,7 +40,7 @@ else
     wget -c https://excellmedia.dl.sourceforge.net/project/generic-software/python/Python-3.5.2.tgz
     tar -zxvf Python-3.5.2.tgz
     cd Python-3.5.2
-    ./configure --prefix=/usr/local/python3.5
+    ./configure --prefix=/usr/local/python3.5  --enable-shared
     echo "如果要增加sqlite3模块请先在setup.py sqlite_inc_paths数组中增加 '/usr/local/sqlite3/include', "
     read -p "Enter Continue:" name
     make && make install
