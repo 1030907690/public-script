@@ -39,6 +39,10 @@ function _M.cache()
 			ngx.say(cache_tab[httpUri])
 		else
 			ngx.say("404 Not Found")
+             local url  = 'http://'..  upstream_addr .. '/foo/bar'
+        local res = ngx.location.capture('/internet_proxy',{ args = {url = url}})
+           --容错判断
+            ngx.print(res.body)
 		end
 	end
 end
