@@ -46,4 +46,5 @@ else
     make && make install
     ln -s /usr/local/python3.5/bin/python3.5 /usr/bin/python3.5
     ln -s /usr/local/python3.5/bin/pip3.5 /usr/bin/pip3.5
+    echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/python3.5/lib' >> /etc/profile
 fi
