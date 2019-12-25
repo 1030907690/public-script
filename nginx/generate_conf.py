@@ -14,7 +14,8 @@ if __name__ == '__main__':
     random = input("请输入: dynamic-http 0 , dynamic-https 1 , static-http 2 static-https 3 ")
 
     try:
-        response = requests.get(network_prefix + conf_list[int(random)])
+        headers = {'user-agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36'}
+        response = requests.get(network_prefix + conf_list[int(random)], headers=headers)
         content = response.text
         port = input("请输入端口")
         content = content.replace("#port#",port)
@@ -29,6 +30,8 @@ if __name__ == '__main__':
         content = content.replace("#proxy_pass#", proxy_pass)
 
         print(content)
+        with open('%s.conf' % domain, 'w') as f:  # 设置文件对象
+            f.write(content)
     except Exception as e:
         print("program error %s " % e)
     finally:
