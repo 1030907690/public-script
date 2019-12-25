@@ -40,11 +40,13 @@ def write_to_file(file_name, txt):
 
 
 if __name__ == '__main__':
+    headers = {
+        'user-agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36'}
 
     ssr_domain = "https://github.com/Alvin9999/pac2/blob/master/ssconfig.txt";
     try:
         content_string = "";
-        content = requests.get(ssr_domain);
+        content = requests.get(ssr_domain, headers=headers,timeout=999);
         # print(content.status_code)
         if content.status_code == 200:
             # print(content.text)
