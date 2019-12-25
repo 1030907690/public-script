@@ -30,7 +30,8 @@ if __name__ == '__main__':
         content = content.replace("#proxy_pass#", proxy_pass)
 
         print(content)
-        with open('%s.conf' % domain, 'w') as f:  # 设置文件对象
+        file_name = domain+port
+        with open('%s.conf' % file_name, 'w') as f:  # 设置文件对象
             f.write(content)
     except Exception as e:
         print("program error %s " % e)
