@@ -15,7 +15,7 @@ if __name__ == '__main__':
 
     try:
         headers = {'user-agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36'}
-        response = requests.get(network_prefix + conf_list[int(random)], headers=headers)
+        response = requests.get(network_prefix + conf_list[int(random)], headers=headers,timeout=999)
         content = response.text
         port = input("请输入端口")
         content = content.replace("#port#",port)
