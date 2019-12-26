@@ -20,7 +20,7 @@ function _M.short_url()
 		if err then
 			functions.show_error(err)
 		end
-		ngx.say('{"status":1,"shorturl":"'..short_url_val..'"}')
+		ngx.say('{"status":1,"short_url":"'..short_url_val..'"}')
 
  elseif root_uri == http_uri then
 	ngx.header.content_type = 'text/html'
