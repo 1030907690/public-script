@@ -7,7 +7,6 @@ function _M.short_url()
 
  if  nil ~= string.find(http_uri,short_url_uri) then
 	
- 
 		ngx.header.content_type = 'text/json'
 		local functions = require('short/functions')
 		-- local cjson = require('cjson')
@@ -20,7 +19,8 @@ function _M.short_url()
 		if err then
 			functions.show_error(err)
 		end
-		ngx.say('{"status":1,"shorturl":"'..short_url_val..'"}')
+		ngx.say('{"status":1,"shorturl":"'..short_url_val..'"}')	
+ 
  else
 	--ngx.say("重定向")
 	ngx.header.content_type = 'text/html'

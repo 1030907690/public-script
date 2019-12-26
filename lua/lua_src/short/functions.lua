@@ -149,8 +149,16 @@ function M.url_create(long_url, short_string)
 		return nil, err
 	end
 	red:set('M_' .. url_md5, short_string)
+	
+	-- 失效时间 2019年12月26日18:01:55
+	red:expire('M_' .. url_md5,config['redis']['expire'])
+	
 	red:set('V_last', short_string)
+	
 	red:set('S_' .. short_string, long_url)
+	
+	-- 失效时间
+	red:expire('S_' .. short_string,config['redis']['expire'])
 	red:set_keepalive(10000, 100)
 	return config['domain']..short_string
 end
