@@ -18,7 +18,7 @@ redis['host'] = '127.0.0.1'
 redis['port'] = 6379
 redis['password'] = 'root'
 -- 失效时间 多少秒 2019年12月26日18:01:55
-redis['expire'] = '300'
+redis['expire'] = '999999999999'
 
 
 -- Initial Short URL

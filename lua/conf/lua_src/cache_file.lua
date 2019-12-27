@@ -39,7 +39,7 @@ function _M.cache()
 			ngx.say(cache_tab[httpUri])
 		else
 			ngx.say("404 Not Found")
-			--ngx.location.capture('/')
+			--ngx.location.capture('/') 
 		end
 	end
 end
