@@ -1,6 +1,6 @@
 #!/bin/bash
 #redis5.0.7 密码root
-yum install -y docker wget
+yum install -y wget
 systemctl start docker
 mkdir -p /data/redis/conf
 cd /data/redis/conf

@@ -1,6 +1,7 @@
 #!/bin/bash
 #安装zookeeper3.4
-yum install -y docker wget
+#yum install -y docker wget
+yum install -y wget
 systemctl start docker
 mkdir -p /data/zookeeper/conf
 cd /data/zookeeper/conf
