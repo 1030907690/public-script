@@ -78,19 +78,22 @@ if __name__ == '__main__':
                 all_file_dict[item.path] = item.update_time
                 # 加入更新列表
                 upload_file_list_file.append(item.path)
+
+        # 删除、上传文件
+        # 实例化一个 sftp对象,指定连接的通道
+        sftp = paramiko.SFTPClient.from_transport(ssh.get_transport())
+        for file_item in upload_file_list_file:
+            # 发送文件
+            print("put file " + file_item + " target " + (
+                file_item.replace(BASE_PATH, TARGET_PATH)))
+            sftp.put(localpath=file_item, remotepath=file_item.replace(BASE_PATH, TARGET_PATH));
         time.sleep(2)
+        upload_file_list_file = []
 
 
 
 
 
-    # 删除、上传文件
-    # 实例化一个 sftp对象,指定连接的通道
-    sftp = paramiko.SFTPClient.from_transport(ssh.get_transport())
-    for file_item in upload_file_list_file:
-        # 发送文件
-        print("put file " + file_item + " target " + (str(file_item,encoding='utf-8').replace(BASE_PATH,TARGET_PATH)))
-        # sftp.put(localpath=base_path + file_item, remotepath=os.path.join(upload_base_path, file_item));
 
     sftp.close()
     ssh.close();
