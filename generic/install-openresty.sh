@@ -66,4 +66,6 @@ else
   mkdir nginx/conf/vhost
   #追加字符串
   sed -i 'N;116 a include vhost/*.conf;' nginx/conf/nginx.conf
+
+  ln -s /usr/local/openresty/bin/openresty /usr/bin/openresty
 fi
