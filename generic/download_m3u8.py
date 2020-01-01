@@ -49,7 +49,7 @@ def download(url):
 
 
 def write_file(r, file_path):
-    file_path = file_path.replace("//", "/")
+    file_path = file_path.replace("//", "/").strip()
     with open(file_path, "wb") as code:
         code.write(r.content)
     return file_path;
@@ -111,7 +111,7 @@ def download_ts_file(url,item_save_path):
     res = requests.get(url, headers=headers, timeout=999)
     if 200 == res.status_code:
         write_file(res,item_save_path)
-        print("%s download successful" % url)
+        print("%s download successful" % url.strip())
 
 
 if __name__ == '__main__':
