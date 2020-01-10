@@ -21,7 +21,7 @@ make
 make test
 make install
 cd ..
-tar -zxvf echo-nginx-module-0.61.tar.gz
+#tar -zxvf echo-nginx-module-0.61.tar.gz
 tar -zxvf openresty-1.15.8.2.tar.gz
 tar -zxvf openssl-1.0.2q.tar.gz
 tar -zxvf pcre-8.41.tar.gz
