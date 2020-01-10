@@ -48,3 +48,6 @@ else
     ln -s /usr/local/python3.5/bin/pip3.5 /usr/bin/pip3.5
     echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/python3.5/lib' >> /etc/profile
 fi
+
+echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/python3.5/lib' >> /etc/profile
+echo '请使用命令 source /etc/profile 重载对$LD_LIBRARY_PATH变量的新增 '
