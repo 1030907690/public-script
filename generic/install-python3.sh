@@ -19,8 +19,7 @@ if [ `grep -c "Ubuntu"  /etc/issue` -eq '0' ]; then
     echo "如果要增加sqlite3模块请先在setup.py sqlite_inc_paths数组中增加 '/usr/local/sqlite3/include', "
     read -p "Enter Continue:" name
     make && make install
-    ln -s /usr/local/python3.5/bin/python3.5 /usr/bin/python3.5
-    ln -s /usr/local/python3.5/bin/pip3.5 /usr/bin/pip3.5
+ 
 else
     echo "当前系统是其他系统Ubuntu"
     apt-get install -y wget
@@ -44,10 +43,10 @@ else
     echo "如果要增加sqlite3模块请先在setup.py sqlite_inc_paths数组中增加 '/usr/local/sqlite3/include', "
     read -p "Enter Continue:" name
     make && make install
-    ln -s /usr/local/python3.5/bin/python3.5 /usr/bin/python3.5
-    ln -s /usr/local/python3.5/bin/pip3.5 /usr/bin/pip3.5
-    echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/python3.5/lib' >> /etc/profile
-fi
 
+    #echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/python3.5/lib' >> /etc/profile
+fi
+ln -s /usr/local/python3.5/bin/python3.5 /usr/bin/python3.5
+ln -s /usr/local/python3.5/bin/pip3.5 /usr/bin/pip3.5
 echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/python3.5/lib' >> /etc/profile
 echo '请使用命令 source /etc/profile 重载对$LD_LIBRARY_PATH变量的新增 '
