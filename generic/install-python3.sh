@@ -19,6 +19,7 @@ if [ `grep -c "Ubuntu"  /etc/issue` -eq '0' ]; then
     echo "如果要增加sqlite3模块请先在setup.py sqlite_inc_paths数组中增加 '/usr/local/sqlite3/include', "
     read -p "Enter Continue:" name
     make && make install
+    cp libpython3.5m.so.1.0 /usr/lib/
  
 else
     echo "当前系统是其他系统Ubuntu"
@@ -43,6 +44,7 @@ else
     echo "如果要增加sqlite3模块请先在setup.py sqlite_inc_paths数组中增加 '/usr/local/sqlite3/include', "
     read -p "Enter Continue:" name
     make && make install
+    cp libpython3.5m.so.1.0 /usr/lib/	
 
     #echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/python3.5/lib' >> /etc/profile
 fi
