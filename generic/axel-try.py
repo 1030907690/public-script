@@ -6,6 +6,7 @@ import os
 import jieba
 import datetime
 import requests
+import re
 
 '''
 可重试的axel
@@ -82,24 +83,63 @@ def cmd(command):
 
 
 
-    res_list = list(jieba.cut(''.join(tips)))
-    index = 0
-    #增加大小
-    #success_list.append(content_length)
-    for item in success_list:
-        if item in res_list:
-           index = index + 1
+    # res_list = list(jieba.cut(''.join(tips)))
+    # index = 0
+    # #增加大小
+    # #success_list.append(content_length)
+    # for item in success_list:
+    #     if item in res_list:
+    #        index = index + 1
+    #
+    # if index > 0:
+    #     print('下载成功了')
+    # else:
+    #     print("下载失败!正在重试......" + str(datetime.datetime.now()))
+    #     cmd(command)
 
-    if index > 0:
-        print('下载成功了')
-    else:
-        print("下载失败!正在重试......" + str(datetime.datetime.now()))
-        cmd(command)
+
+    print('-----------------------开始检查完整性----------------------------- ')
+    index = 0
+    try:
+        output = subprocess.check_output(command,shell=False)
+    except Exception as e:
+        #Command '['axel', '-o', '.', 'https://img-blog.csdnimg.cn/20200210111658880.png']' returned non-zero exit status 1
+        import traceback
+        #traceback.print_exc()  # 打印异常信息
+        exc_type, exc_value, exc_traceback = sys.exc_info()
+        error = str(repr(traceback.format_exception(exc_type, exc_value, exc_traceback)))  # 将异常信息转为字符串
+        #print(error)
+        if error.find('returned non-zero exit status'):
+           index = 1
+           print("returned non-zero exit status 没有状态文件，无法继续下载")
+    finally:
+        if index > 0:
+            print('下载成功了')
+        else:
+            print("下载失败!正在重试......" + str(datetime.datetime.now()))
+            cmd(command)
+
+
 
 
 
 if __name__ == '__main__':
     print('start')
+
+
+    #测试代码
+    # try:
+    #     output = subprocess.check_output(["axel",'-o' ,'.', "https://img-blog.csdnimg.cn/20200210111658880.png"],shell=False)
+    #     print('asd' + str(output,encoding='utf-8'))
+    # except Exception as e:
+    #     #Command '['axel', '-o', '.', 'https://img-blog.csdnimg.cn/20200210111658880.png']' returned non-zero exit status 1
+    #     import traceback
+    #     #traceback.print_exc()  # 打印异常信息
+    #     exc_type, exc_value, exc_traceback = sys.exc_info()
+    #     error = str(repr(traceback.format_exception(exc_type, exc_value, exc_traceback)))  # 将异常信息转为字符串
+    #     print(error)
+    #     if error.find('returned non-zero exit status'):
+    #        print("没有状态文件，无法继续下载")
 
 
     if len(sys.argv) > 1:
