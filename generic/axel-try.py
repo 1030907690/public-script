@@ -3,10 +3,8 @@
 import sys
 import subprocess
 import os
-import jieba
 import datetime
-import requests
-import re
+import platform
 
 '''
 可重试的axel
@@ -19,22 +17,23 @@ python axel-try.py -n 10 -o . https://img-blog.csdnimg.cn/20200210111658880.png
 python axel-try.py -n 10 -o . https://archive.apache.org/dist/maven/binaries/apache-maven-3.0.1-bin.tar.gz
 '''
 
-
-
-#文件长度
+# 文件长度
 content_length = 0
 
 success_list = ["用时"]
-#是url的标记
-url_tags = ['https://','http://','ftp://']
+# 是url的标记
+url_tags = ['https://', 'http://', 'ftp://']
 
 thread_number = 0
+
+
 # execute command, and return the output
 def execCmd(cmd):
     r = os.popen(cmd)
     text = r.read()
     r.close()
     return text
+
 
 def cmd(command):
     # res = subprocess.run(command, stdout=subprocess.PIPE )
@@ -77,11 +76,9 @@ def cmd(command):
         tips[index] = text
         index = index + 1
         if index >= max_tips:
-            #重置
+            # 重置
             index = 0
         print(" %s" % text)
-
-
 
     # res_list = list(jieba.cut(''.join(tips)))
     # index = 0
@@ -101,17 +98,17 @@ def cmd(command):
     print('-----------------------开始检查完整性----------------------------- ')
     index = 0
     try:
-        output = subprocess.check_output(command,shell=False)
+        output = subprocess.check_output(command, shell=False)
     except Exception as e:
-        #Command '['axel', '-o', '.', 'https://img-blog.csdnimg.cn/20200210111658880.png']' returned non-zero exit status 1
+        # Command '['axel', '-o', '.', 'https://img-blog.csdnimg.cn/20200210111658880.png']' returned non-zero exit status 1
         import traceback
-        #traceback.print_exc()  # 打印异常信息
+        # traceback.print_exc()  # 打印异常信息
         exc_type, exc_value, exc_traceback = sys.exc_info()
         error = str(repr(traceback.format_exception(exc_type, exc_value, exc_traceback)))  # 将异常信息转为字符串
-        #print(error)
+        # print(error)
         if error.find('returned non-zero exit status'):
-           index = 1
-           print("returned non-zero exit status 没有状态文件，无法继续下载")
+            index = 1
+            print("returned non-zero exit status 没有状态文件，无法继续下载")
     finally:
         if index > 0:
             print('下载成功了')
@@ -120,14 +117,49 @@ def cmd(command):
             cmd(command)
 
 
+def install_axel(install):
+    '''
+    安装
+    :param install:
+    :return:
+    '''
+    if install is False:
+        print("您还未安装axel")
+        if platform.system() == "Linux":
+            print("正在为您安装axel,注意要root用户运行")
+            if platform.version().find("Ubuntu") >= 0:
+                print("sudo apt-get install axel")
+                # sudoPassword = 'zzq'
+                # command = ' apt install axel'
+                # str = os.system('echo %s|sudo -S %s' % (sudoPassword, command))
+                # print(str)
+                os.system("apt-get install axel")
+        else:
+            os.system("yum install axel")
 
+
+def assertion_axel_install():
+    '''
+    判断axel是否安装
+    :return:
+    '''
+    install = True
+    try:
+        res = subprocess.run(["axels"], shell=False, stdout=subprocess.PIPE)
+        # print(res.returncode)
+        if res.returncode > 1:
+            install = False
+    except FileNotFoundError as e:
+        install = False
+
+    return install
 
 
 if __name__ == '__main__':
     print('start')
 
-
-    #测试代码
+    install_axel(assertion_axel_install())
+    # 测试代码
     # try:
     #     #url = "https://img-blog.csdnimg.cn/20200210111658880.png"
     #     url = "https://liquidtelecom.dl.sourceforge.net/project/generic-software/php/openresty-1.15.8.2.tar.gz"
@@ -155,7 +187,7 @@ if __name__ == '__main__':
             if index > 0:
                 command.append(item)
                 command_str += ' ' + item
-                #寻找-o
+                # 寻找-o
                 if "-o" == item:
                     file_path_index = index + 1
                 # 寻找-n
@@ -164,7 +196,6 @@ if __name__ == '__main__':
                 for url_item in url_tags:
                     if item.find(url_item) >= 0:
                         url = item
-
 
         # if file_path_index > -1:
         #     file_prefix = sys.argv[file_path_index]
@@ -189,4 +220,5 @@ if __name__ == '__main__':
         cmd(command)
     else:
         print("请输入axel参数!")
+        # os.system("axel")
     print('end')
