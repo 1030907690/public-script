@@ -145,7 +145,7 @@ def assertion_axel_install():
     '''
     install = True
     try:
-        res = subprocess.run(["axels"], shell=False, stdout=subprocess.PIPE)
+        res = subprocess.run(["axel"], shell=False, stdout=subprocess.PIPE)
         # print(res.returncode)
         if res.returncode > 1:
             install = False
@@ -220,5 +220,5 @@ if __name__ == '__main__':
         cmd(command)
     else:
         print("请输入axel参数!")
-        # os.system("axel")
+        os.system("axel")
     print('end')
