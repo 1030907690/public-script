@@ -129,7 +129,9 @@ if __name__ == '__main__':
 
     #测试代码
     # try:
-    #     output = subprocess.check_output(["axel",'-o' ,'.', "https://img-blog.csdnimg.cn/20200210111658880.png"],shell=False)
+    #     #url = "https://img-blog.csdnimg.cn/20200210111658880.png"
+    #     url = "https://liquidtelecom.dl.sourceforge.net/project/generic-software/php/openresty-1.15.8.2.tar.gz"
+    #     output = subprocess.check_output(["axel",'-o' ,'.', url],shell=False)
     #     print('asd' + str(output,encoding='utf-8'))
     # except Exception as e:
     #     #Command '['axel', '-o', '.', 'https://img-blog.csdnimg.cn/20200210111658880.png']' returned non-zero exit status 1
