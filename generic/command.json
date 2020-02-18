@@ -1,0 +1,5 @@
+[
+  {"name":"test","workDir":".","status":1,"sort":0,"sleep":1,"command":"ls -a","remarks":""}
+  ,
+  {"name":"test cd","workDir":".","status":1,"sort":0,"sleep":1,"command":"cd .","remarks":""}
+]
