@@ -8,7 +8,7 @@ import paramiko
 import os
 import time
 
-host = "192.168.137.137";
+host = "47.114.147.81";
 user_name = "root";
 password = "root";
 
@@ -23,10 +23,21 @@ class FileInfo:
 
 
 def createConnection():
+    #1、密码连接
+    # ssh = paramiko.SSHClient()
+    # # 自动认证
+    # ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    # ssh.connect(host, 22, user_name, password);
+
+    #2、密钥连接
+
+    private_key = paramiko.RSAKey.from_private_key_file('/home/zzq/work/docs/server-ssh/app-dabaitu/id_rsa')
+
     ssh = paramiko.SSHClient()
-    # 自动认证
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    ssh.connect(host, 22, user_name, password);
+
+    ssh.connect(hostname=host, port=22, username="root", pkey=private_key)
+
     return ssh;
 
 
@@ -51,8 +62,11 @@ def list_file(path, all_file):
 if __name__ == '__main__':
     print("start");
     ssh = createConnection();
-    BASE_PATH = "F:/work/self/public-script/lua/conf/";
-    TARGET_PATH = "/usr/local/openresty/nginx/conf/";
+    #BASE_PATH = "F:/work/self/public-script/lua/conf/";
+    #TARGET_PATH = "/usr/local/openresty/nginx/conf/";
+    BASE_PATH = "/home/zzq/work/self/public-script/ssh/script/";
+    TARGET_PATH = "/home/new_project/script/";
+
 
     # 确定要上传的文件
     upload_file_list_file = [];
