@@ -100,7 +100,10 @@ if __name__ == '__main__':
             # 发送文件
             print("put file " + file_item + " target " + (
                 file_item.replace(BASE_PATH, TARGET_PATH)))
-            sftp.put(localpath=file_item, remotepath=file_item.replace(BASE_PATH, TARGET_PATH));
+            try:
+                sftp.put(localpath=file_item, remotepath=file_item.replace(BASE_PATH, TARGET_PATH));
+            except Exception as e:
+                print(e)
         time.sleep(2)
         upload_file_list_file = []
 
