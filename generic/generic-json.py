@@ -89,8 +89,20 @@ def getApplicationList(application_name):
     # conn.close();
 
     project_list = []
-    if os.path.exists(FILE_NAME):
-        file = open(FILE_NAME, 'r', encoding='utf-8')
+    import sys
+    file_suffix = sys.argv[0]
+    file_prefix = ""
+    if file_suffix.rfind("/") >= 0:
+        if file_suffix[0:1] == "/":
+            file_prefix = file_suffix[0:file_suffix.rfind("/")+1]
+        else:
+            file_prefix = os.getcwd() +"/"+ file_suffix[0:file_suffix.rfind("/")+1]
+    else:
+        file_prefix = os.getcwd()+"/"
+
+    print("prefix" + file_prefix)
+    if os.path.exists(file_prefix+FILE_NAME):
+        file = open(file_prefix+FILE_NAME, 'r', encoding='utf-8')
         import json
         command_arr = json.loads(file.read())
         file.close()
