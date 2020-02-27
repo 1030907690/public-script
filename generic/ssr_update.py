@@ -42,10 +42,12 @@ def write_to_file(file_name, txt):
     f.close();
 
 
-if __name__ == '__main__':
-    headers = {
+headers = {
         'user-agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36'}
 
+
+
+def ssr_account1():
     ssr_domain = "https://github.com/Alvin9999/pac2/blob/master/ssconfig.txt";
 
     try:
@@ -79,6 +81,8 @@ if __name__ == '__main__':
     finally:
         print(" ")
 
+def ssr_account2():
+
     try:
         content = requests.get("https://github.com/Alvin9999/new-pac/wiki/ss%E5%85%8D%E8%B4%B9%E8%B4%A6%E5%8F%B7",
                                headers=headers, timeout=999)
@@ -103,6 +107,56 @@ if __name__ == '__main__':
 
     except Exception as e:
         print(e)
+
+
+def decode_base64(data):
+    """Decode base64, padding being optional.
+    :param data: Base64 data as an ASCII byte string
+    :returns: The decoded byte string.
+
+    """
+    missing_padding = 4 - len(data) % 4
+    if missing_padding:
+        data += '='* missing_padding
+    return str(base64.b64decode(data),
+                           encoding='utf-8')
+
+def ssr_account3():
+    '''
+    http://ss.pythonic.life/
+    :return:
+    '''
+    ssr_account_domain_list = ["https://muma16fx.netlify.com/",
+                               "https://qiaomenzhuanfx.netlify.com/",
+                               "https://raw.githubusercontent.com/ssrsub/ssr/master/ssrsub",
+                               "https://raw.githubusercontent.com/voken100g/AutoSSR/master/online",
+                               "https://raw.githubusercontent.com/voken100g/AutoSSR/master/recent"
+                               ,"https://youlianboshi.netlify.com/"
+                               ]
+    for ssr_doamin in ssr_account_domain_list:
+
+        # try:
+            content = requests.get(ssr_doamin, headers=headers, timeout=999);
+            # print(content.status_code)
+            if content.status_code == 200:
+                #print(content.text)
+                data = content.text
+
+                ssr_info = decode_base64(data)
+                #ssr_info = str(base64.b64decode(content.text),  encoding='utf-8')
+                print(ssr_info)
+        # except Exception as e:
+        #     print("program error %s %s" % (e,ssr_doamin))
+        # finally:
+        #     print()
+
+if __name__ == '__main__':
+    ssr_account1()
+    ssr_account2()
+    ssr_account3()
+
+
+
 
     if platform.system() == "Windows":
         random = input("请按任意键退出")
