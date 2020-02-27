@@ -1,0 +1,13 @@
+#!/usr/bin/expect
+set timeout 102
+set user [lindex $argv 0] 
+#set ip [lindex $argv 1]
+set password [lindex $argv 1]
+#set password 123qweasd!@#
+spawn ssh -t  $user@shell.sourceforge.net create
+expect {
+"yes/no" {send "yes\r"; exp_continue}
+"Password:" {send "$password\r"}
+}
+interact
+ #ssh -t  zhouzhongqing@shell.sourceforge.net create
