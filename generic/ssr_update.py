@@ -135,7 +135,7 @@ def ssr_account3():
                                ]
     for ssr_doamin in ssr_account_domain_list:
 
-        # try:
+        try:
             content = requests.get(ssr_doamin, headers=headers, timeout=999);
             # print(content.status_code)
             if content.status_code == 200:
@@ -145,10 +145,10 @@ def ssr_account3():
                 ssr_info = decode_base64(data)
                 #ssr_info = str(base64.b64decode(content.text),  encoding='utf-8')
                 print(ssr_info)
-        # except Exception as e:
-        #     print("program error %s %s" % (e,ssr_doamin))
-        # finally:
-        #     print()
+        except Exception as e:
+            print("program error %s %s" % (e,ssr_doamin))
+        finally:
+            print()
 
 if __name__ == '__main__':
     ssr_account1()
