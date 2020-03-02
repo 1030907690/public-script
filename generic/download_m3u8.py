@@ -61,6 +61,8 @@ def create_folder(path):
         os.makedirs(path)
 
 
+
+
 def parse_m3u8(url, file_path):
     res = requests.get(url, headers=headers, timeout=999)
     print(res.status_code)
@@ -86,13 +88,17 @@ def parse_m3u8(url, file_path):
 
         option_prefix = "";
         if len(download_file_list) > 0:
-            res = requests.get(host + download_file_list[0], headers=headers, timeout=999)
-            if 200 == res.status_code:
+            #选择下载文件的前缀
+            if download_file_list[0][0:1] == "/":
                 option_prefix = host;
             else:
-                res = requests.get(full_prefix + download_file_list[0], headers=headers, timeout=999)
+                res = requests.get(host + download_file_list[0], headers=headers, timeout=999)
                 if 200 == res.status_code:
-                    option_prefix = full_prefix
+                    option_prefix = host;
+                else:
+                    res = requests.get(full_prefix + download_file_list[0], headers=headers, timeout=999)
+                    if 200 == res.status_code:
+                        option_prefix = full_prefix
 
         print("option_prefix " + option_prefix)
 
@@ -118,7 +124,14 @@ if __name__ == '__main__':
     print("start")
     start_time = time.time()
     url = "https://cn7.kankia.com/hls/20191231/618724d74eb29a8c53ebd37254e81f10/1577758490/index.m3u8"
-    parse_m3u8(url, prefix + "index.m3u8")
+    if len(sys.argv) > 1:
+        url = sys.argv[1]
+
+    if len(sys.argv) > 2:
+        prefix = sys.argv[2]
+
+    file_name_suffix = url[url.rfind("/"):len(url)]
+    parse_m3u8(url, prefix + file_name_suffix)
     end_time = time.time()
     print("take up time %d " % (end_time - start_time) )
     print("end")
