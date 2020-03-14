@@ -43,8 +43,7 @@ def write_to_file(file_name, txt):
 
 
 headers = {
-        'user-agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36'}
-
+    'user-agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36'}
 
 
 def ssr_account1():
@@ -81,8 +80,8 @@ def ssr_account1():
     finally:
         print(" ")
 
-def ssr_account2():
 
+def ssr_account2():
     try:
         content = requests.get("https://github.com/Alvin9999/new-pac/wiki/ss%E5%85%8D%E8%B4%B9%E8%B4%A6%E5%8F%B7",
                                headers=headers, timeout=999)
@@ -117,9 +116,10 @@ def decode_base64(data):
     """
     missing_padding = 4 - len(data) % 4
     if missing_padding:
-        data += '='* missing_padding
+        data += '=' * missing_padding
     return str(base64.b64decode(data),
-                           encoding='utf-8')
+               encoding='utf-8')
+
 
 def ssr_account3():
     '''
@@ -131,7 +131,7 @@ def ssr_account3():
                                "https://raw.githubusercontent.com/ssrsub/ssr/master/ssrsub",
                                "https://raw.githubusercontent.com/voken100g/AutoSSR/master/online",
                                "https://raw.githubusercontent.com/voken100g/AutoSSR/master/recent"
-                               ,"https://youlianboshi.netlify.com/"
+        , "https://youlianboshi.netlify.com/"
                                ]
     for ssr_doamin in ssr_account_domain_list:
 
@@ -139,24 +139,55 @@ def ssr_account3():
             content = requests.get(ssr_doamin, headers=headers, timeout=999);
             # print(content.status_code)
             if content.status_code == 200:
-                #print(content.text)
+                # print(content.text)
                 data = content.text
 
                 ssr_info = decode_base64(data)
-                #ssr_info = str(base64.b64decode(content.text),  encoding='utf-8')
+                # ssr_info = str(base64.b64decode(content.text),  encoding='utf-8')
                 print(ssr_info)
         except Exception as e:
-            print("program error %s %s" % (e,ssr_doamin))
+            print("program error %s %s" % (e, ssr_doamin))
         finally:
             print()
+
+
+def ssr_account4():
+    domain_prefix = 'https://t1.free-air.org'
+    try:
+        content = requests.get(domain_prefix + '/ss%e5%85%8d%e8%b4%b9%e8%b4%a6%e5%8f%b7/',
+                               headers=headers, timeout=999)
+        if content.status_code == 200:
+            # print(content.text)
+            # 初始化并制定解析器
+            soup = BeautifulSoup(content.text, "lxml");
+            figure = soup.select("figure[class='wp-block-image']");
+            image = figure[1].find('img')
+
+            file_name = image['src'][image['src'].rfind('/'):len(image['src'])]
+            res = requests.get(domain_prefix + image['src'], headers=headers, timeout=999)
+            if 200 == res.status_code:
+                write_file(res, os.getcwd() + file_name)
+                print("%s download successful" % (os.getcwd() + file_name))
+
+        else:
+            print("访问失败!")
+
+    except Exception as e:
+        print(e)
+
+
+def write_file(r, file_path):
+    file_path = file_path.replace("//", "/").strip()
+    with open(file_path, "wb") as code:
+        code.write(r.content)
+    return file_path;
+
 
 if __name__ == '__main__':
     ssr_account1()
     ssr_account2()
     ssr_account3()
-
-
-
+    ssr_account4()
 
     if platform.system() == "Windows":
         random = input("请按任意键退出")
