@@ -51,8 +51,11 @@ def download(url):
 
 def write_file(r, file_path):
     file_path = file_path.replace("//", "/").strip()
-    with open(file_path, "wb") as code:
-        code.write(r.content)
+    if os.path.exists(file_path.strip()):
+        print('%s already download ' % file_path)
+    else:
+        with open(file_path, "wb") as code:
+            code.write(r.content)
     return file_path;
 
 
@@ -123,11 +126,14 @@ def parse_m3u8(url, file_path,last_m3u8_prefix=''):
                     parse_m3u8(option_prefix + item, prefix + item, item_full_prefix)
 
 def download_ts_file(url,item_save_path):
-    print('access url %s' % url.strip())
-    res = requests.get(url.strip(), headers=headers, timeout=999)
-    if 200 == res.status_code:
-        write_file(res,item_save_path)
-        print("%s download successful" % url.strip())
+    if os.path.exists(item_save_path.strip()):
+        print('%s already download ' % url.strip())
+    else:
+        print('access url %s' % url.strip())
+        res = requests.get(url.strip(), headers=headers, timeout=999)
+        if 200 == res.status_code:
+            write_file(res,item_save_path)
+            print("%s download successful" % url.strip())
 
 
 if __name__ == '__main__':
