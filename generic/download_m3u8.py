@@ -21,6 +21,7 @@ headers = {
 
 prefix = "/home/zzq/temp/"
 
+last_m3u8_prefix = ''
 
 def main(argv):
     inputfile = ''
@@ -63,8 +64,8 @@ def create_folder(path):
 
 
 
-def parse_m3u8(url, file_path):
-    res = requests.get(url, headers=headers, timeout=999)
+def parse_m3u8(url, file_path,last_m3u8_prefix=''):
+    res = requests.get(url.strip(), headers=headers, timeout=999)
     print(res.status_code)
     if 200 == res.status_code:
         path = write_file(res, file_path)
@@ -92,6 +93,7 @@ def parse_m3u8(url, file_path):
             if download_file_list[0][0:1] == "/":
                 option_prefix = host;
             else:
+                '''
                 res = requests.get(host + download_file_list[0], headers=headers, timeout=999)
                 if 200 == res.status_code:
                     option_prefix = host;
@@ -99,6 +101,8 @@ def parse_m3u8(url, file_path):
                     res = requests.get(full_prefix + download_file_list[0], headers=headers, timeout=999)
                     if 200 == res.status_code:
                         option_prefix = full_prefix
+                '''
+                option_prefix = full_prefix
 
         print("option_prefix " + option_prefix)
 
@@ -108,13 +112,19 @@ def parse_m3u8(url, file_path):
             item_full_prefix = item.replace(item_arr[len(item_arr) - 1], "")
             item_mkdir_path = prefix + item_full_prefix
             create_folder(item_mkdir_path)
-            if item.rfind(".ts"):
-                pool.submit(download_ts_file, option_prefix + item,prefix + item)
-            elif item.rfind(".m3u8"):
-                parse_m3u8(option_prefix +  item,item_mkdir_path)
+            if item.rfind(".ts") >= 0:
+                pool.submit(download_ts_file, option_prefix + item,prefix + last_m3u8_prefix + item)
+            elif item.rfind(".m3u8") >= 0:
+                #如果地址为根域名+具体内容
+                if item[0:1] == "/":
+                    parse_m3u8(option_prefix +  item,prefix + item,'')
+                else:
+                    #如果地址是相对路径 要加上m3u8的路径
+                    parse_m3u8(option_prefix + item, prefix + item, item_full_prefix)
 
 def download_ts_file(url,item_save_path):
-    res = requests.get(url, headers=headers, timeout=999)
+    print('access url %s' % url.strip())
+    res = requests.get(url.strip(), headers=headers, timeout=999)
     if 200 == res.status_code:
         write_file(res,item_save_path)
         print("%s download successful" % url.strip())
@@ -123,15 +133,25 @@ def download_ts_file(url,item_save_path):
 if __name__ == '__main__':
     print("start")
     start_time = time.time()
-    url = "https://cn7.kankia.com/hls/20191231/618724d74eb29a8c53ebd37254e81f10/1577758490/index.m3u8"
+    #根域名路径
+    #url = "https://cn7.kankia.com/hls/20191231/618724d74eb29a8c53ebd37254e81f10/1577758490/index.m3u8"
+    #相对路径
+    url = 'https://youku.cdn-56.com/20180422/1693_516c750a/index.m3u8'
+    #下载的url
     if len(sys.argv) > 1:
         url = sys.argv[1]
 
+    #保存路径前缀
     if len(sys.argv) > 2:
         prefix = sys.argv[2]
 
+    #文件名称
     file_name_suffix = url[url.rfind("/"):len(url)]
+    if len(sys.argv) > 3:
+        file_name_suffix = sys.argv[3]
+
+
     parse_m3u8(url, prefix + file_name_suffix)
     end_time = time.time()
-    print("take up time %d " % (end_time - start_time) )
-    print("end")
+
+    #print("end")
