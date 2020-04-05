@@ -1,5 +1,5 @@
 #!/bin/bash
-#sh auto-restart.sh > logs.log 2>&1 &
+#*/5 * * * *   sh /root/software/cron-auto-restart.sh
 export JAVA_HOME=/usr/local/jdk1.8.0_144 
 export JRE_HOME=$JAVA_HOME/jre
 export PATH=$PATH:$JAVA_HOME/bin
