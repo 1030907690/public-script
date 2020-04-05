@@ -16,6 +16,7 @@ do
                echo "restart "${my_array[$i]} "chdir" ${work_space_array[$i]}
                cd ${work_space_array[$i]}
                sh start.sh
+			   sleep 20s
                pro_id_item=`ps -ef | grep ${my_array[$i]} |grep -v 'grep' | awk '{print $2}'`
                if [ x"$pro_id_item" = x ]; then
                   echo ${my_array[$i]}" restart fail "
