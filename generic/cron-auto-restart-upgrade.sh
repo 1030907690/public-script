@@ -3,7 +3,7 @@
 export JAVA_HOME=/usr/local/jdk1.8.0_144 
 export JRE_HOME=$JAVA_HOME/jre
 export PATH=$PATH:$JAVA_HOME/bin
-my_array=("https://toz66.app")
+my_array=("https://xxx.app")
 pro_array=(":dmdownload-1.0.0-SNAPSHOT.jar")
 work_space_array=("/home/new_project/dmdownload/")
 
