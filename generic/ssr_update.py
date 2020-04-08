@@ -152,7 +152,7 @@ def ssr_account3():
 
 
 def ssr_account4():
-    domain_prefix = 'https://t1.free-air.org'
+    domain_prefix = 'http://blog.freeair999.club'
     try:
         content = requests.get(domain_prefix + '/ss%e5%85%8d%e8%b4%b9%e8%b4%a6%e5%8f%b7/',
                                headers=headers, timeout=999)
