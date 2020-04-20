@@ -14,8 +14,8 @@ function _M.cache()
 	if refresh == httpUri then
         -- 缓存清空
 		--cache_tab = {}
-		-- promotion_cache.flush_all()
-		-- promotion_cache.flush_expired(10)
+		promotion_cache:flush_all()
+		promotion_cache:flush_expired(10)
 						
 		ngx.say("cache refresh successful")
 	else  -- html的请求
