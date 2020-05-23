@@ -22,15 +22,13 @@ def reconnect():
 
 
 def check_wifi():
-    sleep = 2;
-    subp = subprocess.Popen("ping baidu.com -t", stdout=subprocess.PIPE)
+    subp = subprocess.Popen("ping baidu.com", stdout=subprocess.PIPE)
     while subp.poll() is None:
         text = str(subp.stdout.readline(), encoding='utf=8')
         print(" %s" % text)
         if match(text):
             reconnect()
             break
-        time.sleep(sleep)
 
 
 def match(text):
