@@ -1,11 +1,11 @@
 #!/bin/bash
 yum install -y wget  gcc  gcc-c++ g++
 #基础依赖
-wget -O openresty-1.15.8.2.tar.gz -c https://sourceforge.net/projects/generic-software/files/php/openresty-1.15.8.2.tar.gz
-wget -O openssl-1.0.2q.tar.gz -c https://sourceforge.net/projects/generic-software/files/php/openssl-1.0.2q.tar.gz
-wget -O pcre-8.41.tar.gz -c https://sourceforge.net/projects/generic-software/files/php/pcre-8.41.tar.gz
-wget -O zlib-1.2.11.tar.gz -c https://sourceforge.net/projects/generic-software/files/php/zlib-1.2.11.tar.gz
-wget -O perl-5.30.1.tar.gz -c https://sourceforge.net/projects/generic-software/files/php/perl-5.30.1.tar.gz
+wget -O openresty-1.15.8.2.tar.gz -c https://sourceforge.net/projects/generic-software/files/php/openresty-1.15.8.2.tar.gz/download
+wget -O openssl-1.0.2q.tar.gz -c https://sourceforge.net/projects/generic-software/files/php/openssl-1.0.2q.tar.gz/download
+wget -O pcre-8.41.tar.gz -c https://sourceforge.net/projects/generic-software/files/php/pcre-8.41.tar.gz/download
+wget -O zlib-1.2.11.tar.gz -c https://sourceforge.net/projects/generic-software/files/php/zlib-1.2.11.tar.gz/download
+wget -O perl-5.30.1.tar.gz -c https://sourceforge.net/projects/generic-software/files/php/perl-5.30.1.tar.gz/download
 
 
 tar -zxvf perl-5.30.1.tar.gz
