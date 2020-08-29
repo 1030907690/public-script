@@ -9,7 +9,6 @@ import sys
 import http.client
 import os
 
-
 if __name__ == '__main__':
     headers = {
         'content-type': "application/x-www-form-urlencoded"
