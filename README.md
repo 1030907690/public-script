@@ -1,7 +1,29 @@
 # public-script
 public-script公开的脚本
 
-### Linux解决编写脚本出现"%0D"
+## docker文件夹包含
+- Docker
+- Gitlab
+- MongoDB
+- MySql
+- Redis
+- Zookeeper
+## generic
+- Jdk
+- Nginx
+- Openresty
+- Redis
+- Python3.5.2
+- nacos-config
+- download_m3u8 下载m3u8视频
+...
+## lua
+- lua脚本
+
+## ssh
+- auto-login 免密自动登录
+- file_upload 利用paramiko模块上传文件
+## Linux解决编写脚本出现"%0D"
 
     --2020-01-10 11:12:18--  https://liquidtelecom.dl.sourceforge.net/project/generic-software/php/openresty-1.15.8.2.tar.gz%0D
     正在解析主机 liquidtelecom.dl.sourceforge.net (liquidtelecom.dl.sourceforge.net)... 197.155.77.8
