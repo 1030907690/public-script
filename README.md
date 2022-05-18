@@ -16,6 +16,10 @@ public-script公开的脚本
 - Python3.5.2
 - nacos-config
 - download_m3u8 下载m3u8视频
+- install-openresty-centos
+- install-axel2.17.10
+- auto-reconnect-wifi
+- auto-restart
 - translate 翻译
 - ...
 ## lua
