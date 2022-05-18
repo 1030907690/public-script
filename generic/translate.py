@@ -9,7 +9,7 @@ import requests
 import json
 
 import time
-#import pandas as pd # pandas也有获取剪贴板api，好像有格式
+# import pandas as pd # pandas也有获取剪贴板api，好像有格式
 import pyperclip
 
 # 上次翻译内容
@@ -57,6 +57,8 @@ def google_api(keyword):
 if __name__ == '__main__':
     print('start')
 
+    selected_api = input('请选择翻译接口 0-有道 1-谷歌,默认有道 ')
+
     while True:
         time.sleep(1)
         # clipboard = pd.read_clipboard()
@@ -67,6 +69,11 @@ if __name__ == '__main__':
         #       'Extends the Spring programming model to support the well-known Enterprise Integration Patterns. Spring Integration enables lightweight messaging within Spring-based applications and supports integration with external systems via declarative adapters. ')
         if prev_content != clipboard:
             # 上次翻译的内容和剪贴板不一致，才调用翻译接口
-            google_api(clipboard)
+            if selected_api  == '0':
+                youdao_api(clipboard)
+            elif selected_api == '1':
+                google_api(clipboard)
+            else:
+                youdao_api(clipboard)
             prev_content = clipboard
     print('end')
