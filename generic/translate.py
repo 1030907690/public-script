@@ -28,29 +28,31 @@ proxies = {
 def youdao_api(keyword):
     try:
         api = 'http://fanyi.youdao.com/translate?&doctype=json&type=AUTO&i=' + keyword
-        res = requests.get(api, headers=headers)
+        res = requests.get(api, headers=headers,timeout=20)
         # print(res.text)
         translateResult = json.loads(res.text)['translateResult']
         for items in translateResult:
             for item in items:
                 print(item['src'])
                 print(item['tgt'])
-    except Exception as ex:
-        print('出现错误: ' + ex)
+    except BaseException as ex:
+        print('出现错误: ')
+        print(ex)
     print("\n--------------------------------")
 
 
 def google_api(keyword):
     try:
         api = 'https://translate.google.cn/translate_a/single?client=gtx&dt=t&dj=1&ie=UTF-8&sl=auto&tl=zh-CN&q=' + keyword
-        res = requests.get(api, headers=headers, proxies=proxies)
+        res = requests.get(api, headers=headers, proxies=proxies,timeout=20)
         # print(res.text)
         sentences = json.loads(res.text)['sentences']
         for item in sentences:
             print(item['orig'])
             print(item['trans'])
-    except Exception as ex:
-        print('出现错误: ' + ex)
+    except BaseException as ex:
+        print('出现错误: ')
+        print(ex)
     print("\n--------------------------------")
 
 
