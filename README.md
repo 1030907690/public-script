@@ -16,6 +16,7 @@ public-script公开的脚本
 - Python3.5.2
 - nacos-config
 - download_m3u8 下载m3u8视频
+- translate 翻译
 - ...
 ## lua
 - lua脚本
