@@ -28,7 +28,7 @@ proxies = {
 def youdao_api(keyword):
     try:
         api = 'http://fanyi.youdao.com/translate?&doctype=json&type=AUTO&i=' + keyword
-        res = requests.get(api, headers=headers,timeout=20)
+        res = requests.get(api, headers=headers, timeout=20)
         # print(res.text)
         translateResult = json.loads(res.text)['translateResult']
         for items in translateResult:
@@ -38,13 +38,16 @@ def youdao_api(keyword):
     except BaseException as ex:
         print('出现错误: ')
         print(ex)
-    print("\n--------------------------------")
+        raise
+        raise RuntimeError('有道翻译失败了')
+    finally:
+        print("\n--------------------------------")
 
 
 def google_api(keyword):
     try:
         api = 'https://translate.google.cn/translate_a/single?client=gtx&dt=t&dj=1&ie=UTF-8&sl=auto&tl=zh-CN&q=' + keyword
-        res = requests.get(api, headers=headers, proxies=proxies,timeout=20)
+        res = requests.get(api, headers=headers, proxies=proxies, timeout=20)
         # print(res.text)
         sentences = json.loads(res.text)['sentences']
         for item in sentences:
@@ -53,7 +56,9 @@ def google_api(keyword):
     except BaseException as ex:
         print('出现错误: ')
         print(ex)
-    print("\n--------------------------------")
+        raise RuntimeError('谷歌翻译失败了')
+    finally:
+        print("\n--------------------------------")
 
 
 if __name__ == '__main__':
@@ -69,13 +74,17 @@ if __name__ == '__main__':
         # google_api(clipboard)
         #    google_api(
         #       'Extends the Spring programming model to support the well-known Enterprise Integration Patterns. Spring Integration enables lightweight messaging within Spring-based applications and supports integration with external systems via declarative adapters. ')
+
         if prev_content != clipboard:
             # 上次翻译的内容和剪贴板不一致，才调用翻译接口
-            if selected_api  == '0':
-                youdao_api(clipboard)
-            elif selected_api == '1':
-                google_api(clipboard)
-            else:
-                youdao_api(clipboard)
-            prev_content = clipboard
+            try:
+                if selected_api == '0':
+                    youdao_api(clipboard)
+                elif selected_api == '1':
+                    google_api(clipboard)
+                else:
+                    youdao_api(clipboard)
+                prev_content = clipboard
+            except BaseException as ex:
+                print(ex)
     print('end')
