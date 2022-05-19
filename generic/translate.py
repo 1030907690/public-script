@@ -26,6 +26,10 @@ proxies = {
 
 
 def youdao_api(keyword):
+    '''
+    有道翻译
+    @param keyword
+    '''
     try:
         api = 'http://fanyi.youdao.com/translate?&doctype=json&type=AUTO&i=' + keyword
         res = requests.get(api, headers=headers, timeout=20)
@@ -45,6 +49,10 @@ def youdao_api(keyword):
 
 
 def google_api(keyword):
+    '''
+    谷歌翻译
+    @param keyword
+    '''
     try:
         api = 'https://translate.google.cn/translate_a/single?client=gtx&dt=t&dj=1&ie=UTF-8&sl=auto&tl=zh-CN&q=' + keyword
         res = requests.get(api, headers=headers, proxies=proxies, timeout=20)
