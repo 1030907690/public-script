@@ -42,7 +42,6 @@ def youdao_api(keyword):
     except BaseException as ex:
         print('出现错误: ')
         print(ex)
-        raise
         raise RuntimeError('有道翻译失败了')
     finally:
         print("\n--------------------------------")
