@@ -70,6 +70,6 @@ def transfer_bean_field(all_field_origin_array):
 
 if __name__ == '__main__':
     print('start')
-    get_all_field('bk_customer')
-
+    table_name = input('请输入表名?')
+    get_all_field(table_name)
     print('end')
