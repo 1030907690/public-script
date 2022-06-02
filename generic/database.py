@@ -30,8 +30,6 @@ file_prefix = os.path.expanduser('~')
 config_path = file_prefix + '/database.json'
 
 
-
-
 def get_all_field(table_name):
     conn = pymysql.connect(host=host, port=port, user=user, passwd=passwd, db=db,
                            charset=charset);
@@ -79,11 +77,10 @@ def transfer_bean_field(all_field_origin_array):
 
 
 def read_and_set_config():
-
     f = open(config_path, encoding="utf-8")
     # 输出读取到的数据
     text = f.read()
-    print(text)
+    print('当前配置: ' + text)
     config_obj = json.loads(text)
     global host
     global passwd
@@ -93,9 +90,18 @@ def read_and_set_config():
     f.close()
 
 
+def checking_config():
+    '''
+    检查配置
+    '''
+    if os.path.exists(config_path) is False:
+        print('配置文件不存在,无法继续，请检查 ' + config_path)
+        input('')
+
+
 if __name__ == '__main__':
     print('start')
-
+    checking_config()
     read_and_set_config()
 
     while True:
