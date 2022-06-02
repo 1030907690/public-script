@@ -17,16 +17,16 @@ import os
 import json
 
 host = ''
-
-port = 2881
-user = 'root'
+port = 3306
+user = ''
 passwd = ''
-db = 'scrm'
-charset = 'UTF8'
+db = ''
+charset = ''
 
 # 当前用户HOME目录
 file_prefix = os.path.expanduser('~')
-# 配置文件全路径
+# 配置文件全路径，文件内容如下
+# {"host":"xxx.0.192","passwd":"xxxx","db":"x","user":"x","port":3306,"charset":"UTF8"}
 config_path = file_prefix + '/database.json'
 
 # ASCII码下划线的十进制数
@@ -53,7 +53,7 @@ def print_sql_as(all_field_origin_array, item_cache):
 
 def get_all_field(table_name):
     conn = pymysql.connect(host=host, port=port, user=user, passwd=passwd, db=db,
-                           charset=charset);
+                           charset=charset)
     cur = conn.cursor()
     sql = "select group_concat(COLUMN_NAME) '所有字段' from information_schema.COLUMNS where table_name = '" + table_name + "'"
     cur.execute(sql)
@@ -106,8 +106,16 @@ def read_and_set_config():
     config_obj = json.loads(text)
     global host
     global passwd
+    global db
+    global user
+    global port
+    global charset
     host = config_obj['host']
     passwd = config_obj['passwd']
+    db = config_obj['db']
+    user = config_obj['user']
+    port = config_obj['port']
+    charset = config_obj['charset']
     # 关闭文件
     f.close()
 
