@@ -29,6 +29,27 @@ file_prefix = os.path.expanduser('~')
 # 配置文件全路径
 config_path = file_prefix + '/database.json'
 
+# ASCII码下划线的十进制数
+ascii_underline_decimal_number = 95
+
+as_str = ' as '
+
+comma = ','
+
+
+def print_sql_as(all_field_origin_array, item_cache):
+    print('\n')
+    print('打印as语句\n')
+    length = len(all_field_origin_array)
+    for index, item in enumerate(all_field_origin_array):
+        as_sql_str = all_field_origin_array[index] + as_str + item_cache[index]
+        # 判断是否需要加逗号
+        if index < length - 1:
+            as_sql_str += comma
+        print(as_sql_str)
+
+    print('----------------------------------------------\n')
+
 
 def get_all_field(table_name):
     conn = pymysql.connect(host=host, port=port, user=user, passwd=passwd, db=db,
@@ -44,6 +65,7 @@ def get_all_field(table_name):
     item_cache = transfer_bean_field(all_field_origin_array)
     print(item_cache)
     print(','.join(item_cache))
+    print_sql_as(all_field_origin_array, item_cache)
 
     # for row in results:
     #     print(row[0])
@@ -62,7 +84,7 @@ def transfer_bean_field(all_field_origin_array):
             item_cache_array = []
             for index, item_a in enumerate(item_array):
                 # ASCII码十进制 95 是_
-                if ord(item_a) == 95:
+                if ord(item_a) == ascii_underline_decimal_number:
                     # 如果遇到_下一个字符大写，先转成ASCII码-32变大写，再转成char
                     item_array[index + 1] = chr(ord(item_array[index + 1]) - 32)
                 else:
