@@ -73,6 +73,51 @@ def get_all_field(table_name):
     conn.close()
 
 
+def search_table_by_table_name(table_name):
+    '''
+    搜索表根据表名模糊查询
+
+     SELECT
+        *
+    FROM
+        `information_schema`.`TABLES`
+    WHERE
+    1 =1
+        -- `information_schema`.`TABLES`.`TABLE_SCHEMA` = 'xx_db' -- database
+        --   and `information_schema`.`TABLES`.`CREATE_TIME` > '2021-12-20 14:36:01'  -- 从这里开始
+           AND `information_schema`.`TABLES`.`TABLE_NAME` LIKE '%ark_customer%' -- 表名c_开头
+           order by `information_schema`.`TABLES`.`CREATE_TIME` ;  -- 创建时间正序
+
+    '''
+    conn = pymysql.connect(host=host, port=port, user=user, passwd=passwd, db=db,
+                           charset=charset)
+    cur = conn.cursor()
+    sql = "SELECT  * FROM `information_schema`.`TABLES` WHERE  `information_schema`.`TABLES`.`TABLE_NAME` LIKE '%" + table_name + "%' ORDER BY `information_schema`.`TABLES`.`CREATE_TIME`"
+    cur.execute(sql)
+    # 获取所有记录列表
+    results = cur.fetchall()
+    print("|         所属database    |            表名        |")
+    print("| -----------------------| -----------------------|")
+    for row in results:
+        print("|"+format(row[1], 24) + "|" + format(row[2], 24)+"|")
+
+    cur.close()
+    conn.close()
+
+
+def format(str, size):
+    '''
+    格式化，不足的地方补空格
+    '''
+
+    if len(str) < size:
+        diff = size - len(str)
+        for i in range(0, diff):
+            str += ' '
+
+    return str
+
+
 def transfer_bean_field(all_field_origin_array):
     print(all_field_origin_array)
     item_cache = []
@@ -137,5 +182,5 @@ if __name__ == '__main__':
     while True:
         table_name = input('请输入表名?')
         get_all_field(table_name)
-
+        search_table_by_table_name(table_name)
     print('end')
