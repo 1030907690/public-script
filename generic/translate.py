@@ -36,8 +36,8 @@ headers = {
 }
 
 proxies = {
-    "http": "http://pc-cd-356:1080",
-    'https': 'http://pc-cd-356:1080'
+    "http": "http://192.168.3.18:1080",
+    'https': 'http://192.168.3.18:1080'
 }
 
 
@@ -73,7 +73,7 @@ def google_api(keyword):
     '''
     flag = 0
     try:
-        api = 'https://translate.google.cn/translate_a/single?client=gtx&dt=t&dj=1&ie=UTF-8&sl=auto&tl=zh-CN&q=' + keyword
+        api = 'https://translate.google.com/translate_a/single?client=gtx&dt=t&dj=1&ie=UTF-8&sl=auto&tl=zh-CN&q=' + keyword
         res = requests.get(api, headers=headers, proxies=proxies, timeout=20)
         # print(res.text)
         sentences = json.loads(res.text)['sentences']
