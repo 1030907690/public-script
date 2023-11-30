@@ -49,7 +49,7 @@ def start(addr):
     while True:
         swiper(addr)
         # 该整数位于闭区间[a, b]之间，包括a和b
-        time.sleep(random.randint(5, 15))
+        time.sleep(random.randint(3, 6))
 
 
 if __name__ == '__main__':
