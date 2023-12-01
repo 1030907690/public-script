@@ -22,7 +22,7 @@ import os
 
 
 if __name__ == '__main__':
-    os.system("pip3.5 install  PyInstaller   -i https://pypi.tuna.tsinghua.edu.cn/simple/")
+    os.system("pip install  PyInstaller   -i https://pypi.tuna.tsinghua.edu.cn/simple/")
     file = sys.argv[1]
     os.system("pyinstaller -F  %s " % file)
 
