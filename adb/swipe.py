@@ -21,8 +21,11 @@ def device():
 
 def swiper(addr):
     if enable == 1:
-        print("执行滑动")
-        os.system(" adb -s " + addr[0] + " shell input swipe 100 900 100 450")
+        addr_str = addr[0]
+        array = addr_str.split(",")
+        for item in array:
+            print("执行滑动" + item)
+            os.system(" adb -s " + item + " shell input swipe 100 900 100 450")
 
 
 def keyboard_tips():
@@ -54,6 +57,6 @@ def start(addr):
 
 if __name__ == '__main__':
     device()
-    addr = input("请输入地址")
+    addr = input("请输入地址,多个英文逗号分开")
     print("输入的地址是 " + addr)
     keyboard_listener(addr)
