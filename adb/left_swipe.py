@@ -24,8 +24,8 @@ def swiper(addr):
         addr_str = addr[0]
         array = addr_str.split(",")
         for item in array:
-            print("执行滑动" + item)
-            os.system(" adb -s " + item + " shell input swipe 100 900 100 450")
+            print("执行滑动 " + item)
+            os.system(" adb -s " + item + " shell input swipe 200 450 100 450")
 
 
 def keyboard_tips():
