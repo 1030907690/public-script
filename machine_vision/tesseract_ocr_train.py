@@ -20,8 +20,23 @@ if __name__ == '__main__':
     font_name = "test"
     num = "0"
 
+    lang_tmp = input("请输入lang,默认addr ")
+    if lang_tmp:
+        lang = lang_tmp
+
+    font_name_tmp = input("请输入fontname 默认test")
+    if font_name_tmp:
+        font_name = font_name_tmp
+
+    num_tmp = input("请输入num，默认0 ")
+    if num_tmp:
+        num = num_tmp
+
+
     tif_name = lang + "." + font_name + ".exp" + num + ".tif"
     name = lang + "." + font_name + ".exp" + num
+
+    print("tif_name ",tif_name)
     input("1、按任意键继续，会生成.box文件")
     cmd = "tesseract " + tif_name + " " + name + " -l chi_sim --psm 6 batch.nochop makebox"
     invocation_command(cmd)
