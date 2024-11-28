@@ -14,7 +14,7 @@ def invocation_command(cmd: str):
 
 
 if __name__ == '__main__':
-    print("请先确认配置好执行Tesseract-OCR命令环境变量和TESSDATA_PREFIX环境变量，会读取addr.test.exp0.tif")
+    print("请先确认配置好执行Tesseract-OCR命令环境变量和TESSDATA_PREFIX环境变量，默认会读取addr.test.exp0.tif")
     # tif文面命名格式[lang].[fontname].exp[num].tif
     lang = "addr"
     font_name = "test"
