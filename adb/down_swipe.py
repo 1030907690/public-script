@@ -24,8 +24,12 @@ def swiper(addr):
         addr_str = addr[0]
         array = addr_str.split(",")
         for item in array:
-            print("执行滑动 " + item)
-            os.system(" adb -s " + item + " shell input swipe 100 900 100 450")
+            ran_x_num = random.randint(0, 10)
+            ran_y_num = random.randint(0, 10)
+            x1, y1, x2, y2 = 100 - ran_x_num, 900 - ran_y_num, 100 - ran_x_num, 450 - ran_y_num
+            cmd = " adb -s " + item + " shell input swipe " + str(x1) + " " + str(y1) + " " + str(x2) + " " + str(y2)
+            print("执行滑动 " + cmd)
+            os.system(cmd)
 
 
 def keyboard_tips():
@@ -52,7 +56,7 @@ def start(addr):
     while True:
         swiper(addr)
         # 该整数位于闭区间[a, b]之间，包括a和b
-        time.sleep(random.randint(3, 6))
+        time.sleep(random.randint(10, 50))
 
 
 if __name__ == '__main__':
