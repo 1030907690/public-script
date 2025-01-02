@@ -33,11 +33,13 @@ if __name__ == '__main__':
         if mb > 100:
             gb = Decimal(mb) / Decimal(1024)
             print(f"{full_path} 文件或文件夹大小为 {gb}GB")
-            gb_files.append(f"{full_path} 文件或文件夹大小为 {gb}GB")
+            gb_files.append({"path":full_path,"size":gb})
         else:
             print(f"{full_path} 文件或文件夹大小为 {mb}MB")
 
 
     print("GB文件或文件夹")
-    for gb in gb_files:
-        print(gb)
+    if gb_files and len(gb_files) > 0:
+        sorted_list = sorted(gb_files, key=lambda x: x['size'])  # 根据元组的第二个元素排序
+        for gb in sorted_list:
+            print(f"{gb['path']} 文件或文件夹大小为 {gb['size']}GB")
