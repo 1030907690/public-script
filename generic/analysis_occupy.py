@@ -24,7 +24,7 @@ def get_folder_size(folder_path):
 
 if __name__ == '__main__':
     getcontext().prec = 2
-    folder_path = 'C:/Users/Administrator/AppData'
+    folder_path = 'D:/software'
     gb_files = []
     for item_path in os.listdir(folder_path):
         full_path = folder_path +"/"+ item_path
