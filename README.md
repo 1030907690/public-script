@@ -32,6 +32,8 @@ public-script公开的脚本
 ## ssh
 - auto-login 免密自动登录
 - file_upload 利用paramiko模块上传文件
+## mysql
+- mysql_buffer_pool_hit innodb buffer pool hit rate
 ## Linux解决编写脚本出现"%0D"
 
     --2020-01-10 11:12:18--  https://liquidtelecom.dl.sourceforge.net/project/generic-software/php/openresty-1.15.8.2.tar.gz%0D
