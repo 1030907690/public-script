@@ -24,7 +24,7 @@ def pynput_input(sleep, str: str):  # 执行时间0.007
     str_array: [str] = list(str)
     for key in str_array:
         keyboard.press(key)
-        # time.sleep(0.01)
+        time.sleep(0.01)
 
     # keyboard.press(Key.enter)
 
