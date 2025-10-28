@@ -22,6 +22,7 @@ public-script公开的脚本
 - auto-restart
 - translate 翻译
 - analysis_occupy 磁盘占用率分析
+- mock_keyboard 模拟键盘输入
 ## machine_vision
 - label_studio_start 启动label_studio
 - tesseract_ocr_train 训练tesseract 
