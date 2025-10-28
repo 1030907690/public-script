@@ -26,7 +26,7 @@ def pynput_input(sleep, str: str):  # 执行时间0.007
         keyboard.press(key)
         time.sleep(0.01)
 
-    # keyboard.press(Key.enter)
+    keyboard.press(Key.enter)
 
 
 # def keyboard_input():  # 执行时间 0.183
