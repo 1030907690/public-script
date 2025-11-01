@@ -6,6 +6,10 @@ Zhou Zhongqing
 
 # 导入必要的模块
 import socket
+import time
+from pynput.keyboard import Key, Controller
+
+keyboard = Controller()
 
 #  参考 https://segmentfault.com/a/1190000044701510
 # 定义一个简单的HTTP服务器类
@@ -25,12 +29,12 @@ class SimpleHTTPServer:
             self.server_socket.bind((self.host, self.port))
             # 监听连接
             self.server_socket.listen(5)
-            print("`HTTP 服务器已启动，监听地址：%s，端口：%d" % (self.host, self.port))
+            print("HTTP 服务器已启动，监听地址：%s，端口：%d" % (self.host, self.port))
 
             while True:
                 # 接受连接
                 client_socket, client_address = self.server_socket.accept()
-                print("`接收到来自 %s 的连接" % str(client_address))
+                print("接收到来自 %s 的连接" % str(client_address))
                 # 处理HTTP请求
                 self.handle_request(client_socket)
 
@@ -40,7 +44,7 @@ class SimpleHTTPServer:
         finally:
             if self.server_socket:
                 self.server_socket.close()
-                print("`HTTP 服务器已关闭")
+                print("HTTP 服务器已关闭")
 
     def handle_request(self, client_socket):
         # 接收客户端请求数据
@@ -50,10 +54,14 @@ class SimpleHTTPServer:
         if request_lines:
             # 获取请求方法、路径和HTTP版本
             method, path, http_version = request_lines[0].strip().split()
-            print("`请求方法：%s，路径：%s，HTTP版本：%s" % (method, path, http_version))
+            # print("请求方法：%s，路径：%s，HTTP版本：%s" % (method, path, http_version))
+            response_body = ""
+            if path.find('/mock_input') >= 0:
+                parameter = resolve_parameter(path)
+                handler_mock_input(parameter)
+                # 构造HTTP响应
+                response_body = response_body_format()
 
-            # 构造HTTP响应
-            response_body = "<html><body><h1>Hello, World!</h1></body></html>"
             response_headers = [
                 "HTTP/1.1 200 OK",
                 "Content-Type: text/html",
@@ -66,14 +74,52 @@ class SimpleHTTPServer:
             client_socket.sendall(response.encode('utf-8'))
             # 关闭客户端连接
             client_socket.close()
-            print("`响应已发送")
+            # print("响应已发送")
 
 
+def handler_mock_input(parameter:dict[str,str]) -> None:
+    sn = parameter['sn']
+    digest = parameter['digest']
+    timestamp = parameter['timestamp']
+    # print("sn: %s, digest: %s, timestamp: %s" % (sn , digest, timestamp))
+    pynput_input(sn)
+
+
+
+def resolve_parameter(path: str) -> dict[str, str]:
+    parameter = path.split('?')[1]
+    # print("参数：%s" % parameter)
+
+    params = parameter.split("&")
+    dict_param:dict[str,str] = {}
+    for param in params:
+        param_array = param.split('=')
+        dict_param[param_array[0]] = param_array[1]
+        # print("参数名：%s，参数值：%" % (param.split('=')[0], param.split('=')[1]))
+    return dict_param
+
+
+def response_body_format():
+    return '{"code":200,"data":"ok"}'
+
+
+
+def pynput_input(str: str):
+
+    str_array: [str] = list(str)
+    for key in str_array:
+        keyboard.press(key)
+        time.sleep(0.001)
+
+    keyboard.press(Key.enter)
 # 主函数
 if __name__ == "__main__":
     # 服务器主机和端口
     HOST = '0.0.0.0'
-    PORT = 5000
+    PORT = 8848
     # 创建HTTP服务器实例并启动
     http_server = SimpleHTTPServer(HOST, PORT)
     http_server.start()
+
+
+#
