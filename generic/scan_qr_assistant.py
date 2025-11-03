@@ -79,9 +79,7 @@ class SimpleHTTPServer:
 
 def handler_mock_input(parameter:dict[str,str]) -> None:
     sn = parameter['sn']
-    digest = parameter['digest']
-    timestamp = parameter['timestamp']
-    # print("sn: %s, digest: %s, timestamp: %s" % (sn , digest, timestamp))
+    print("sn ",sn)
     pynput_input(sn)
 
 
