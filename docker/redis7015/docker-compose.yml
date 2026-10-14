@@ -1,0 +1,11 @@
+services:
+  redis:
+    image: redis:7.0.15-alpine
+    container_name: redis7015
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - /home/data/redis/conf/redis.conf:/etc/redis/redis.conf
+      - /home/data/redis/data:/data
+    command: redis-server /etc/redis/redis.conf

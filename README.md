@@ -9,6 +9,7 @@ public-script公开的脚本
 - Redis
 - Zookeeper
 - MySQL 8.0.36
+- Redis 7.0.15
 ## generic
 - Jdk
 - Nginx
