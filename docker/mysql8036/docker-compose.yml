@@ -1,0 +1,16 @@
+services:
+  mysql:
+    image: mysql:8.0.36
+    container_name: mysql8036
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "root"
+      TZ: Asia/Shanghai
+    volumes:
+      - /home/data/mysql/data:/var/lib/mysql
+      - /home/data/mysql/conf/my.cnf:/etc/mysql/conf.d/my.cnf
+    command:
+      - mysqld
+      - --lower-case-table-names=1
